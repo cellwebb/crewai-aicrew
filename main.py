@@ -5,7 +5,11 @@ from langchain_community.utilities.duckduckgo_search import \
     DuckDuckGoSearchAPIWrapper
 
 # Define the LLM and search wrapper
-llm = LLM(model="groq/meta-llama/llama-4-scout-17b-16e-instruct")
+try:
+    llm = LLM(model="groq/meta-llama/llama-4-scout-17b-16e-instruct")
+except Exception as e:
+    print(f"Error: {str(e)}")
+    llm = LLM(model="openai/gpt-4o")
 wrapper = DuckDuckGoSearchAPIWrapper()
 
 
