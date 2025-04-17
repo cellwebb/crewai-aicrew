@@ -1,0 +1,5 @@
+crewai
+groq
+langchain
+langchain-community
+pydantic
