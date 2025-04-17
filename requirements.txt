@@ -2,4 +2,5 @@ crewai
 groq
 langchain
 langchain-community
+litellm
 pydantic

@@ -1,34 +1,25 @@
 import os
 
-from crewai.llm import LLM
+from crewai.llms.base_llm import BaseLLM
 from groq import Groq
 
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
 
-class GroqLLM(LLM):
+class GroqLLM(BaseLLM):
     """Groq LLM wrapper."""
 
     def __init__(self, model):
         super().__init__(model=model)
         self.client = client
-        self.model = model
-        self.response_format = None
-        self.is_anthropic = False
-        self.timeout = None
-        self.top_p = None
-        self.temperature = None
-        self.n = None
-        self.max_tokens = None
-        self.max_completion_tokens = None
-        self.presence_penalty = None
-        self.frequency_penalty = None
-        self.logit_bias = None
-        self.seed = 42069
-        self.logprobs = None
-        self.top_logprobs = None
-        self.api_base = None
-        self.base_url = None
+        self.temperature = 0.7
+        self.timeout = 120
+        self.max_tokens = 4000
+        self.top_p = 0.9
+        self.frequency_penalty = 0.1
+        self.presence_penalty = 0.1
+        self.response_format = {"type": "json"}
+        self.seed = 42
 
     def call(self, messages, tools=None, callbacks=None, available_functions=None):
         """Override call to use Groq client for completions."""
