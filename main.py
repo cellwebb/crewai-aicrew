@@ -1,6 +1,8 @@
 from crewai import LLM, Agent, Crew, Process, Task
+from langchain.tools import DuckDuckGoSearchRun
 
 llm = LLM(model="groq/meta-llama/llama-4-scout-17b-16e-instruct")
+search_tool = DuckDuckGoSearchRun()
 
 researcher = Agent(
     role="Researcher",
@@ -8,6 +10,7 @@ researcher = Agent(
     backstory="You are a researcher with a passion for AI",
     llm=llm,
     verbose=True,
+    tools=[search_tool],
 )
 reporter = Agent(
     role="Reporter",
@@ -15,6 +18,7 @@ reporter = Agent(
     backstory="You are a reporter with a passion for AI",
     llm=llm,
     verbose=True,
+    tools=[search_tool],
 )
 
 research_task = Task(
@@ -33,4 +37,6 @@ crew = Crew(
     tasks=[research_task, report_task],
     process=Process.sequential,
 )
-crew.kickoff()
+result = crew.kickoff()
+
+print(result)

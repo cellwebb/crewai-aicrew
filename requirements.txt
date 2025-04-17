@@ -1,4 +1,5 @@
 crewai
+duckduckgo-search
 groq
 langchain
 langchain-community
